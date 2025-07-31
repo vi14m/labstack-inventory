@@ -14,16 +14,195 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      components: {
+        Row: {
+          category: string
+          component_name: string
+          created_at: string
+          created_by: string | null
+          current_quantity: number
+          datasheet_link: string | null
+          description: string | null
+          id: string
+          last_inward_date: string | null
+          last_outward_date: string | null
+          location_bin: string
+          low_stock_threshold: number
+          manufacturer_supplier: string | null
+          part_number: string
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          component_name: string
+          created_at?: string
+          created_by?: string | null
+          current_quantity?: number
+          datasheet_link?: string | null
+          description?: string | null
+          id?: string
+          last_inward_date?: string | null
+          last_outward_date?: string | null
+          location_bin: string
+          low_stock_threshold?: number
+          manufacturer_supplier?: string | null
+          part_number: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          component_name?: string
+          created_at?: string
+          created_by?: string | null
+          current_quantity?: number
+          datasheet_link?: string | null
+          description?: string | null
+          id?: string
+          last_inward_date?: string | null
+          last_outward_date?: string | null
+          location_bin?: string
+          low_stock_threshold?: number
+          manufacturer_supplier?: string | null
+          part_number?: string
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          component_id: string | null
+          created_at: string
+          id: string
+          is_read: boolean | null
+          message: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          component_id?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          component_id?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_component_id_fkey"
+            columns: ["component_id"]
+            isOneToOne: false
+            referencedRelation: "components"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          component_id: string
+          id: string
+          notes: string | null
+          performed_by: string
+          quantity: number
+          reason_project: string | null
+          transaction_date: string
+          transaction_type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Insert: {
+          component_id: string
+          id?: string
+          notes?: string | null
+          performed_by: string
+          quantity: number
+          reason_project?: string | null
+          transaction_date?: string
+          transaction_type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Update: {
+          component_id?: string
+          id?: string
+          notes?: string | null
+          performed_by?: string
+          quantity?: number
+          reason_project?: string | null
+          transaction_date?: string
+          transaction_type?: Database["public"]["Enums"]["transaction_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_component_id_fkey"
+            columns: ["component_id"]
+            isOneToOne: false
+            referencedRelation: "components"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_role: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["user_role"]
+      }
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["user_role"]
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      transaction_type: "inward" | "outward"
+      user_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +329,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      transaction_type: ["inward", "outward"],
+      user_role: ["admin", "user"],
+    },
   },
 } as const
