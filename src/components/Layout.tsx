@@ -27,20 +27,30 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card shadow-sm">
+      <header className="glass-effect border-b shadow-lg sticky top-0 z-50">
         <div className="flex h-16 items-center px-4 lg:px-6">
           <div className="flex items-center space-x-4">
-            <h1 className="text-xl font-bold">ELIMS</h1>
-            <span className="text-sm text-muted-foreground">
-              Electronics Lab Inventory Management System
-            </span>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center animate-float">
+                <Package className="h-4 w-4 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold gradient-text">ELIMS</h1>
+                <span className="text-xs text-muted-foreground hidden sm:block">
+                  Electronics Lab Inventory Management System
+                </span>
+              </div>
+            </div>
           </div>
           
           <div className="ml-auto flex items-center space-x-4">
-            <span className="text-sm text-muted-foreground">
-              {userProfile?.full_name} {isAdmin && '(Admin)'}
-            </span>
-            <Button variant="outline" size="sm" onClick={signOut}>
+            <div className="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-muted/50">
+              <div className="w-2 h-2 rounded-full bg-success animate-pulse"></div>
+              <span className="text-sm font-medium">
+                {userProfile?.full_name} {isAdmin && '(Admin)'}
+              </span>
+            </div>
+            <Button variant="outline" size="sm" onClick={signOut} className="shadow-sm hover:shadow-md transition-all">
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
             </Button>
@@ -49,15 +59,20 @@ const Layout = ({ children }: LayoutProps) => {
       </header>
 
       <div className="flex">
-        <nav className="w-64 border-r bg-card min-h-[calc(100vh-4rem)]">
+        <nav className="w-64 border-r glass-effect min-h-[calc(100vh-4rem)]">
           <div className="space-y-2 p-4">
             {navigation.map((item) => {
               const Icon = item.icon;
+              const isActive = window.location.pathname === item.href;
               return (
                 <Button
                   key={item.name}
-                  variant={window.location.pathname === item.href ? "default" : "ghost"}
-                  className="w-full justify-start"
+                  variant={isActive ? "default" : "ghost"}
+                  className={`w-full justify-start transition-all duration-200 ${
+                    isActive 
+                      ? "btn-primary-gradient text-primary-foreground shadow-lg" 
+                      : "hover:bg-accent/50 hover:translate-x-1"
+                  }`}
                   onClick={() => navigate(item.href)}
                 >
                   <Icon className="h-4 w-4 mr-2" />
@@ -68,8 +83,10 @@ const Layout = ({ children }: LayoutProps) => {
           </div>
         </nav>
 
-        <main className="flex-1 p-6">
-          {children}
+        <main className="flex-1 p-6 bg-gradient-to-br from-background to-muted/20">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>

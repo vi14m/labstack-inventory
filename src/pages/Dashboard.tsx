@@ -105,50 +105,65 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight gradient-text">Dashboard</h1>
+          <p className="text-muted-foreground mt-2">Welcome back! Here's what's happening in your lab.</p>
+        </div>
       </div>
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="hover:scale-[1.02] transition-transform duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Components</CardTitle>
-            <Package className="h-4 w-4 text-muted-foreground" />
+            <div className="p-2 rounded-lg bg-primary/10">
+              <Package className="h-4 w-4 text-primary" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{data.totalComponents.toLocaleString()}</div>
+            <div className="text-3xl font-bold text-primary">{data.totalComponents.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground mt-1">Active inventory</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:scale-[1.02] transition-transform duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Value</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <div className="p-2 rounded-lg bg-success/10">
+              <TrendingUp className="h-4 w-4 text-success" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">₹{data.totalValue.toLocaleString()}</div>
+            <div className="text-3xl font-bold text-success">₹{data.totalValue.toLocaleString()}</div>
+            <p className="text-xs text-muted-foreground mt-1">Total inventory value</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:scale-[1.02] transition-transform duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Low Stock Items</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-destructive" />
+            <div className="p-2 rounded-lg bg-destructive/10">
+              <AlertTriangle className="h-4 w-4 text-destructive" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-destructive">{data.lowStockComponents.length}</div>
+            <div className="text-3xl font-bold text-destructive">{data.lowStockComponents.length}</div>
+            <p className="text-xs text-muted-foreground mt-1">Needs attention</p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="hover:scale-[1.02] transition-transform duration-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Old Stock Items</CardTitle>
-            <TrendingDown className="h-4 w-4 text-orange-500" />
+            <div className="p-2 rounded-lg bg-warning/10">
+              <TrendingDown className="h-4 w-4 text-warning" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-500">{data.oldStockComponents.length}</div>
+            <div className="text-3xl font-bold text-warning">{data.oldStockComponents.length}</div>
+            <p className="text-xs text-muted-foreground mt-1">Slow moving items</p>
           </CardContent>
         </Card>
       </div>
