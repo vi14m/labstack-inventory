@@ -1,73 +1,130 @@
-# Welcome to your Lovable project
 
-## Project info
+# Labstack Inventory
 
-**URL**: https://lovable.dev/projects/e35602a4-c496-4344-a5f7-6d58d0ce6848
+## Project Overview
+Labstack Inventory is a comprehensive inventory management web application built to help businesses and teams efficiently track, manage, and analyze their inventory. The application is designed for scalability, security, and ease of use, providing a seamless experience across devices. It supports real-time updates, role-based access, and modern UI/UX patterns to ensure users can manage inventory with minimal friction.
 
-## How can I edit this code?
+## Setup & Running Locally
 
-There are several ways of editing your application.
+## Installation & Local Setup
 
-**Use Lovable**
+### Prerequisites
+Before you begin, ensure you have the following installed:
+- **Node.js (v18 or higher):** Required for running the frontend and installing dependencies.
+- **npm, yarn, or bun:** Any package manager supported by the project. Bun is optional and supported via `bun.lockb`.
+- **Supabase account:** Used for authentication, database, and backend services. Sign up at [supabase.com](https://supabase.com/) and create a new project.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e35602a4-c496-4344-a5f7-6d58d0ce6848) and start prompting.
+### Step-by-Step Installation
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/vi14m/labstack-inventory.git
+   cd labstack-inventory
+   ```
+2. **Install dependencies**
+   Choose your preferred package manager:
+   ```bash
+   npm install
+   ```
+3. **Configure Supabase**
+   - Go to your Supabase dashboard and copy your project URL and anon/public key.
+   - Open `src/integrations/supabase/client.ts` and replace the placeholder credentials with your own.
+   - To set up the database schema, run migrations:
+     ```bash
+     supabase db push
+     ```
+   - You may need to install the Supabase CLI: https://supabase.com/docs/guides/cli
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+5. **Open the application**
+   Visit [http://localhost:5173](http://localhost:5173) in your browser. The app will automatically reload on code changes.
 
-Changes made via Lovable will be committed automatically to this repo.
+### Troubleshooting
+- If you encounter issues with dependencies, ensure your Node.js version matches the required version.
+- For Supabase errors, double-check your credentials and database setup.
 
-**Use your preferred IDE**
+## Architecture & Technology Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Frontend
+- **React (TypeScript):** The core of the UI, providing a component-based architecture for building interactive interfaces. TypeScript adds type safety and better developer tooling.
+- **Vite:** A next-generation build tool that offers fast cold starts, instant hot module replacement, and optimized production builds. Vite is chosen for its speed and simplicity compared to older tools like Webpack.
+- **Tailwind CSS:** A utility-first CSS framework that enables rapid UI development with a mobile-first approach. Tailwind ensures the app is highly responsive and easy to customize.
+- **shadcn-ui:** A set of accessible, customizable React components used for building consistent UI elements. All reusable UI components are located in `src/components/ui`.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### State Management
+- **React Hooks & Context:** State is managed using React's built-in hooks (`useState`, `useEffect`, etc.) and context for global state (such as authentication and notifications). This approach keeps the codebase simple and avoids the overhead of external state libraries.
 
-Follow these steps:
+### Backend & Integrations
+- **Supabase:** Acts as the backend-as-a-service, providing authentication, database (PostgreSQL), and real-time subscriptions. Supabase is integrated via the client in `src/integrations/supabase/client.ts` and types in `src/integrations/supabase/types.ts`.
+- **Database Migrations:** Managed via Supabase CLI and SQL files in `supabase/migrations/`.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Build & Tooling
+- **Vite:** Handles development server, build process, and optimizations for production.
+- **ESLint & Prettier:** Ensures code quality and consistent formatting.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Folder Structure
+- `src/components/ui/`: Reusable UI components (buttons, dialogs, tables, etc.)
+- `src/pages/`: Main application pages (Dashboard, Auth, NotFound, etc.)
+- `src/hooks/`: Custom React hooks for logic reuse (authentication, mobile detection, toast notifications)
+- `src/integrations/supabase/`: Supabase client and types
+- `supabase/`: Database config and migrations
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Implemented Features
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+### Authentication
+Users can sign up and log in securely using Supabase's authentication system. Passwords are hashed and stored securely. The app supports session management and can be extended for OAuth providers.
 
-**Edit a file directly in GitHub**
+### Dashboard
+The dashboard provides a real-time overview of inventory status, recent activity, and system notifications. It is designed for quick insights and easy navigation, with widgets and charts for visual representation.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Inventory Management
+Users can add new items, edit existing ones, delete items, and view detailed information. All changes are synced with the backend in real time. The UI supports bulk actions and search/filtering for large inventories.
 
-**Use GitHub Codespaces**
+### Responsive Design
+The application is fully responsive, adapting to mobile, tablet, and desktop screens. Tailwind CSS and custom hooks (`use-mobile.tsx`) ensure optimal layout and usability on all devices.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Notifications
+Toast and alert components provide instant feedback for user actions (e.g., item added, error occurred). Notifications are managed via custom hooks and can be extended for system-wide alerts.
 
-## What technologies are used for this project?
+### Role-Based Access
+If enabled, the app supports multiple user roles:
+- **Admin:** Full access, including user management and settings.
+- **Manager:** Can manage inventory and view reports.
+- **Staff:** Limited to viewing and updating assigned inventory.
+Roles are managed via Supabase and enforced in the frontend. See `src/hooks/useAuth.tsx` for implementation details.
 
-This project is built with:
+## User Roles & Access
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Accessing Different User Roles
+Roles are assigned in the Supabase dashboard or via the app's admin interface (if implemented). To test different roles:
+- Update the user's role in Supabase under the `users` table.
+- Use demo accounts or modify the role in `src/hooks/useAuth.tsx` for local testing.
+Each role sees a different set of features and permissions in the UI.
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/e35602a4-c496-4344-a5f7-6d58d0ce6848) and click on Share -> Publish.
+## Screenshots & GIFs
+Below are some visual examples of the application's key features:
 
-## Can I connect a custom domain to my Lovable project?
+![Dashboard Screenshot](public/Screenshot%20from%202025-08-04%2022-15-00.png)
 
-Yes, you can!
+![authentication](public/Screenshot%20from%202025-08-04%2022-16-18.png)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+![pic](public/Screenshot%20from%202025-08-04%2022-18-45.png)
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+![pic](public/Screenshot%20from%202025-08-04%2022-31-46.png)
+![pic](public/Screenshot%20from%202025-08-04%2022-39-52.png)
+![pic](public/Screenshot%20from%202025-08-04%2022-41-15.png)
+
+## Known Limitations & Future Improvements
+
+### Limitations
+- Offline support is not available; the app requires an active internet connection.
+- Reporting and analytics features are basic and can be expanded.
+- Role management UI is minimal; advanced permission controls are planned.
+
+### Future Improvements
+- Add advanced analytics and reporting dashboards.
+- Implement offline sync and caching for better reliability.
+- Enhance role management with granular permissions and audit logs.
+- Integrate barcode/QR code scanning for faster inventory operations.
