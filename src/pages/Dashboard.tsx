@@ -115,55 +115,55 @@ const Dashboard = () => {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="hover:scale-[1.02] transition-transform duration-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Components</CardTitle>
-            <div className="p-2 rounded-lg bg-primary/10">
-              <Package className="h-4 w-4 text-primary" />
+        <Card className="card-interactive animate-scale-in">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Components</CardTitle>
+            <div className="p-3 rounded-xl bg-primary/10 shadow-sm">
+              <Package className="h-5 w-5 text-primary" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-primary">{data.totalComponents.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground mt-1">Active inventory</p>
+            <div className="text-3xl font-bold text-emphasis">{data.totalComponents.toLocaleString()}</div>
+            <p className="text-subtle mt-1">Active inventory</p>
           </CardContent>
         </Card>
 
-        <Card className="hover:scale-[1.02] transition-transform duration-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Value</CardTitle>
-            <div className="p-2 rounded-lg bg-success/10">
-              <TrendingUp className="h-4 w-4 text-success" />
+        <Card className="card-interactive animate-scale-in" style={{ animationDelay: '0.1s' }}>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Value</CardTitle>
+            <div className="p-3 rounded-xl bg-success/10 shadow-sm">
+              <TrendingUp className="h-5 w-5 text-success" />
             </div>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-success">₹{data.totalValue.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground mt-1">Total inventory value</p>
+            <p className="text-subtle mt-1">Total inventory value</p>
           </CardContent>
         </Card>
 
-        <Card className="hover:scale-[1.02] transition-transform duration-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Low Stock Items</CardTitle>
-            <div className="p-2 rounded-lg bg-destructive/10">
-              <AlertTriangle className="h-4 w-4 text-destructive" />
+        <Card className="card-interactive animate-scale-in" style={{ animationDelay: '0.2s' }}>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Low Stock Items</CardTitle>
+            <div className="p-3 rounded-xl bg-destructive/10 shadow-sm">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
             </div>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-destructive">{data.lowStockComponents.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Needs attention</p>
+            <p className="text-subtle mt-1">Needs attention</p>
           </CardContent>
         </Card>
 
-        <Card className="hover:scale-[1.02] transition-transform duration-200">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Old Stock Items</CardTitle>
-            <div className="p-2 rounded-lg bg-warning/10">
-              <TrendingDown className="h-4 w-4 text-warning" />
+        <Card className="card-interactive animate-scale-in" style={{ animationDelay: '0.3s' }}>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Old Stock Items</CardTitle>
+            <div className="p-3 rounded-xl bg-warning/10 shadow-sm">
+              <TrendingDown className="h-5 w-5 text-warning" />
             </div>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold text-warning">{data.oldStockComponents.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Slow moving items</p>
+            <p className="text-subtle mt-1">Slow moving items</p>
           </CardContent>
         </Card>
       </div>
